@@ -3,7 +3,6 @@ import {
   Field,
   Fieldset,
   Input,
-  Label,
   Select,
 } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
@@ -15,15 +14,15 @@ const SearchBar = () => {
         Iglesia
       </span>
       <Fieldset>
-        <form className="border border-solid border-[#999] flex justify-between h-16 gap">
+        <form className="md:border md:border-solid md:border-[#999] flex flex-col md:flex-row justify-between h-16 gap-1">
           <Field>
-            <Input className="border-none px-2 w-[200px] h-full" name="ciudad" placeholder="Ciudad"/>
+            <Input className="border border-solid border-[#999] md:border-none w-full p-5 md:px-2  md:w-[200px] h-full" name="ciudad" placeholder="Ciudad"/>
           </Field>
           <Field>
-            <Input className="border-none px-2 w-[200px] h-full" name="canton" placeholder="Cantón"/>
+            <Input className="border border-solid border-[#999] md:border-none w-full p-5 md:px-2 lg:w-[140px] xl:w-[200px] h-full" name="canton" placeholder="Cantón"/>
           </Field>
           <Field>
-            <Select className="border-none px-2 w-[200px] h-full" name="servicios">
+            <Select className="border border-solid border-[#999] md:border-none w-full p-5 md:px-2 lg:w-[140px] xl:w-[200px] h-full" name="servicios">
               <option>Servicios</option>
               <option>Sunday Service</option>
               <option>Bible Study</option>
