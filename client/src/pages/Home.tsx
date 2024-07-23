@@ -11,8 +11,7 @@ const Home = () => {
             perspiciatis eum alias voluptas illum optio totam quae, vitae
             doloribus! Tempora asperiores error cum perferendis sit.
           </p>
-          <SearchBar/>
-          
+          <SearchBar/> 
         </div>
       </div>
       <div className="hidden lg:flex lg:items-center lg:flex-2 bg-blue-200 relative ">
