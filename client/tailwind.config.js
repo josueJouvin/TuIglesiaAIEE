@@ -11,7 +11,8 @@ export default {
       },
       flex:{
         "3": "3 1 0%",
-        "2": "2 1 0%"
+        "2": "2 1 0%",
+        "10": "10 1 0%"
       },
       fontFamily: {
         lato: ['Lato', 'sans-serif'],

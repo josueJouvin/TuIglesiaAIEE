@@ -3,7 +3,7 @@ import "leaflet/dist/leaflet.css";
 import { DummyData } from "../types";
 import Pin from "./Pin";
 
-interface MapProps {
+type MapProps = {
   data: DummyData[];
 }
 
