@@ -5,9 +5,9 @@ import { dummyDataList } from "../data/DummyData"
 
 const ChurchExplorerMap = () => {
   return (
-    <div className="flex h-full">
-      <section className="flex-3 h-full">
-        <div className="h-full lg:pr-[50px] flex flex-col gap-16 md:gap-12 lg:overflow-y-scroll pb-12">
+    <>
+      <section className="flex-3">
+        <div className="h-full xl:pr-[50px] flex flex-col gap-16 md:gap-12 xl:overflow-y-scroll pb-12">
           <Filter/>
           {
             dummyDataList.map(item => (
@@ -16,10 +16,10 @@ const ChurchExplorerMap = () => {
           }
         </div>
       </section>
-      <section className="hidden lg:flex lg:h-full bg-blue-200 lg:flex-2">
+      <section className="xl:flex xl:h-full bg-blue-200 xl:flex-2">
         <Map data={dummyDataList}/>
       </section>
-    </div>
+    </>
   )
 }
 

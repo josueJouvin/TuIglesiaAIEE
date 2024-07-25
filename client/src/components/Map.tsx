@@ -4,7 +4,7 @@ import { DummyData } from "../types";
 import Pin from "./Pin";
 
 type MapProps = {
-  data: DummyData[];
+  data: DummyData[]  ;
 }
 
 const Map = ({ data }: MapProps) => {

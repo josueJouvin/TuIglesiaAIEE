@@ -39,7 +39,7 @@ const Navbar = () => {
         ))}
       </div>
 
-      <div className="hidden md:flex md:items-center md:justify-end md:flex-2 bg-transparent h-full lg:bg-blue-200">
+      <div className="hidden md:flex md:items-center md:justify-end md:flex-2 bg-transparent h-full lg:bg-blue-200/75">
         <div className="flex items-center font-bold">
           <a
             href="/"
@@ -56,6 +56,8 @@ const Navbar = () => {
         </div>
       </div>
 
+
+        {/*Movil menu*/}
       <div className="fixed bottom-7 right-10 md:hidden text-right">
         <Menu>
           <MenuButton className="inline-flex items-center rounded-md bg-black text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-700 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">

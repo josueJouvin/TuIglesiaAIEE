@@ -7,23 +7,17 @@ interface PinProps {
 }
 
 const Pin = ({ item }: PinProps) => {
-  // Verifica si las coordenadas son válidas
-  if (typeof item.latitude !== 'number' || typeof item.longitude !== 'number') {
-    console.error('Coordenadas inválidas para el item:', item);
-    return null; // No renderiza nada si las coordenadas no son válidas
-  }
-
   return (
     <Marker position={[item.latitude, item.longitude]}>
       <Popup>
-        <div className="flex gap-5">
+        <section className="flex gap-5 w-full">
           <img className="w-16 h-12 object-cover rounded-md" src={item.img} alt={item.title || ''} />
-          <div className="flex flex-col justify-between">
+          <div className="flex flex-col justify-between w-screen">
             <Link to={`/iglesias/${item.id}`}>{item.title}</Link>
             <span>{item.bedroom}</span>
             <b>$ {item.price}</b>
           </div>
-        </div>
+        </section>
       </Popup>
     </Marker>
   )
