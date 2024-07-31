@@ -17,6 +17,9 @@ export default {
       fontFamily: {
         lato: ['Lato', 'sans-serif'],
       },
+      backgroundColor:{
+        "btn": "#fece51"
+      },
     },
   },
   plugins: [],

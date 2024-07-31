@@ -6,8 +6,8 @@ const Layout = () => {
   return (
     <div className={`${location.pathname === "/" ? "h-screen" : "" } container mx-auto px-5 pb-5 md:pb-0 flex flex-col `}>
       <Navbar />
-      <div className={location.pathname === "/"  || location.pathname === "/iglesias" ? "xl:h-outlet" : " "}>
-        <div className="flex flex-col gap-5 lg:gap-0 lg:flex-row h-full">
+      <div className={location.pathname === "/"  || location.pathname === "/iglesias" || location.pathname === "/perfil"? "h-outlet" : " "}>
+        <div className="h-full flex flex-col lg:flex-row gap-5 lg:gap-0">
           <Outlet />
         </div>
       </div>

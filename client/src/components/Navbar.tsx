@@ -10,8 +10,10 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import ActionButton from "./ActionButton";
 
 const Navbar = () => {
+  const user = true;
   const navItems = [
     { name: "Home", icon: HomeIcon },
     { name: "About", icon: InformationCircleIcon },
@@ -39,25 +41,35 @@ const Navbar = () => {
         ))}
       </div>
 
-      <div className="hidden md:flex md:items-center md:justify-end md:flex-2 bg-transparent h-full lg:bg-blue-200/75">
-        <div className="flex items-center font-bold">
-          <a
-            href="/"
-            className="py-3 px-6 my-5 transition-all duration-400 hover:scale-105"
-          >
-            Sign in
-          </a>
-          <a
-            href="/"
-            className="py-3 px-6 m-5 bg-[#fece51] transition-all duration-400 hover:scale-105"
-          >
-            Sign up
-          </a>
-        </div>
+      <div className="hidden md:flex md:items-center md:justify-end md:flex-2 bg-transparent h-full lg:bg-blue-200/75 ">
+        {user ? (
+          <div className="flex items-center font-bold">
+            <img
+              className="size-10 rounded-[50%] object-cover mr-5"
+              src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              alt=""
+            />
+            <span>Josss</span>
+            <Link to="/perfil" className="py-3 px-6 bg-[#fece51] cursor-pointer border-none relative m-5">
+              <div className="absolute -top-2 -right-2 bg-red-600 text-white rounded-[50%] size-7 flex items-center justify-center">3</div>
+              <span>Perfil</span>
+            </Link>
+          </div>
+        ) : (
+          <>
+            <a
+              href="/"
+              className="py-3 px-6 my-5 transition-all duration-400 hover:scale-105 font-bold"
+            >
+              Sign in
+            </a>
+            <ActionButton text="Perfil"/>
+          </>
+        )}
+        <div className="flex items-center font-bold"></div>
       </div>
 
-
-        {/*Movil menu*/}
+      {/*Movil menu*/}
       <div className="fixed bottom-7 right-10 md:hidden text-right">
         <Menu>
           <MenuButton className="inline-flex items-center rounded-md bg-black text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-700 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">
