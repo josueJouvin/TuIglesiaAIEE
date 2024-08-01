@@ -21,7 +21,7 @@ const Navbar = () => {
     { name: "Agents", icon: UserGroupIcon },
   ];
   return (
-    <nav className="h-[100px] flex justify-between items-center">
+    <nav className="h-20 md:h-[100px] flex justify-between items-center">
       <div className="flex items-center flex-3 gap-12">
         <Link
           to="/"

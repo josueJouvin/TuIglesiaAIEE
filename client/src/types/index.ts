@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { UserLoginSchema, UserSchema } from "../schema/user.schema";
+
 export type DummyData = {
   id: number;
   title: string;
@@ -33,3 +36,7 @@ export type userDataType = {
   name: string,
   img: string
 }
+
+export type user = z.infer<typeof UserSchema>
+
+export type userLogin = z.infer<typeof UserLoginSchema>

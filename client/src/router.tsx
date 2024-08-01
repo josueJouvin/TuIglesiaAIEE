@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import ChurchExplorerMap from "./pages/ChurchExplorerMap";
 import ChurchProfile from "./pages/ChurchProfile";
 import Profile from "./pages/Profile";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 export const router = createBrowserRouter([
     {
@@ -14,6 +16,14 @@ export const router = createBrowserRouter([
                 index: true,
                 path: "/",
                 element:<Home/>
+            },
+            {
+                path:"/login", 
+                element:<Login/>
+            },
+            {
+                path:"/register", 
+                element:<Register/>
             },
             {
                 path:"/iglesias",
