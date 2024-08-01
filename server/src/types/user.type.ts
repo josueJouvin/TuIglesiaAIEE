@@ -1,4 +1,5 @@
 import { z } from "zod"
-import { UserSchema } from "../schema/user.schema";
+import { LoginSchema, UserSchema } from "../schema/user.schema";
 
-export type UserInput = z.infer<typeof UserSchema>;
+export type UserRegisterInput = z.infer<typeof UserSchema>;
+export type UsLoginInput = z.infer<typeof LoginSchema>

@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
+import { LoginSchema, UserSchema } from "../schema/user.schema";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import prisma from "../lib/prisma";
-import { UserSchema } from "../schema/user.schema";
 
 export const register = async (req: Request, res: Response) => {
     try {
         // Validar los datos de entrada con Zod
         const userData = UserSchema.parse(req.body);
-
         // Verificar si el usuario ya existe
         const existingUser = await prisma.user.findFirst({
             where: {
@@ -44,24 +44,31 @@ export const register = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-    const {username, password} = req.body
+    const {email, password} = LoginSchema.parse(req.body)
 
     try {
         const user = await prisma.user.findUnique({
             where:{
-                username
+                email
             }
-        })
-    
-        if(!user) return res.status(401).json({message: "Credenciales invalidas!"})
+        })  
+        if(!user) return res.status(401).json({message: "Usuario no encontrado!"})
 
         const isPasswordValid = await bcrypt.compare(password, user.password)
-
         if(!isPasswordValid) return res.status(401).json({message: "Credenciales invalidas!"})
 
-        res.cookie("test2", "myvalue2", {
+        const age = 1000 * 60 * 60 * 24 * 7
+        const token = jwt.sign({
+            id: user.id
+        }, process.env.JWT_SECRET_KEY,{expiresIn: age})
+
+        const {password: userPassword, ...userInfo} = user
+
+        res.cookie("token", token, { 
             httpOnly: true,
-        })
+            maxAge: age
+            //secure: true
+        }).status(200).json({message: "Bienvenido", data: userInfo})
     } catch (error) {
         console.log(error)
         res.status(500).json({message: "Error al iniciar sesion!"})
@@ -69,5 +76,5 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const logout = (req: Request, res: Response) => {
-    // Implementa la lógica de logout aquí
+    res.clearCookie("token").status(200).json({ message: "Has cerrado sesión con éxito." });
 };
