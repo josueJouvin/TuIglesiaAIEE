@@ -4,13 +4,17 @@ import Chat from "../components/Chat";
 import ChurchListings from "../components/ChurchListings";
 import apiRequest from "../utils/apiRequest";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../stores/auth.store";
 
 const Profile = () => {
   const navigate = useNavigate()
+  const clearUser = useUserStore(state => state.clearUser)
+  const user = useUserStore(state => state.user)
+
   async function logout() {
     try{
       const response = await apiRequest.post("/auth/logout")
-      localStorage.removeItem("user")
+      clearUser()
       toast.success(response.data.message)
       navigate("/")
     }catch(err){
@@ -31,15 +35,15 @@ const Profile = () => {
               Icono:{" "}
               <img
                 className="size-10 rounded-[50%] object-cover"
-                src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                src={user?.avatar || "/noavatar.jpg"}
                 alt=""
               />
             </span>
             <span className="flex items-center gap-5">
-              Nombre de usuario: <b>Josue Garces</b>
+              Nombre de usuario: <b>{user?.username}</b>
             </span>
             <span className="flex items-center gap-5">
-              E-mail: <b>josuegj2001@gmail.com</b>
+              E-mail: <b>{user?.email}</b>
             </span>
             <button className="bg-red-500 hover:bg-red-700 transition-all py-3 px-5  w-fit text-white font-bold rounded-md" onClick={logout}>Cerrar sesión</button>
           </div>

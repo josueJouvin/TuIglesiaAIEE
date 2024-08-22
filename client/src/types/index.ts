@@ -1,6 +1,14 @@
 import { z } from "zod";
 import { UserLoginSchema, UserSchema } from "../schema/user.schema";
 
+export type User = {
+  avatar: null | string,
+  createAt: string,
+  id: string,
+  username: string,
+  email: string
+}
+
 export type DummyData = {
   id: number;
   title: string;

@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "./layout/Layout";
 import Home from "./pages/Home";
 import ChurchExplorerMap from "./pages/ChurchExplorerMap";
 import ChurchProfile from "./pages/ChurchProfile";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Layout from "./layout/Layout";
 
 export const router = createBrowserRouter([
     {
@@ -32,9 +33,16 @@ export const router = createBrowserRouter([
             {
                 path:"/iglesias/:id",
                 element:<ChurchProfile/>
-            },{
-                path: "perfil",
-                element:<Profile/>
+            }
+        ]
+    },
+    {
+        path: "/",
+        element: <ProtectedRoute/>,
+        children: [
+            {
+                path: "/perfil",
+                element: <Profile/>
             }
         ]
     }

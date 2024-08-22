@@ -1,5 +1,6 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { useUserStore } from "../stores/auth.store";
 
 const Layout = () => {
   const location = useLocation()
@@ -15,4 +16,5 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+
+export default Layout

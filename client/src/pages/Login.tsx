@@ -9,15 +9,17 @@ import Error from "../components/Error";
 import apiRequest from "../utils/apiRequest";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useUserStore } from "../stores/auth.store";
 
 const Login = () => {
   const navigate = useNavigate()
+  const setUser = useUserStore(state => state.setUser)
   const {register, handleSubmit, reset, formState:{ errors }} = useForm<userLogin>({resolver: zodResolver(UserLoginSchema)})
-
+  
   async function userLogin(data: userLogin) {
     try {
       const response = await apiRequest.post("/auth/login", data)
-      localStorage.setItem("user", JSON.stringify(response.data.data))
+      setUser(response.data.data)
       toast.success(response.data.message)
       reset()
       navigate("/")

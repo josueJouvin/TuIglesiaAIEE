@@ -4,6 +4,7 @@ import { singlePostData, userData } from "../data/DummyData";
 import ChurchDetails from "../components/ChurchDetails";
 
 const ChurchProfile = () => {
+ 
   return (
     <>
       <section className="flex-3 h-full ">

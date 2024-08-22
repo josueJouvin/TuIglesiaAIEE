@@ -1,6 +1,9 @@
 import SearchBar from "../components/SearchBar";
+import { useUserStore } from "../stores/auth.store";
 
 const Home = () => {
+  const user = useUserStore(state => state.user)
+  console.log(user)
   return (
     <>
       <section  className="flex-3">

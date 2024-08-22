@@ -11,9 +11,10 @@ import {
 } from "@heroicons/react/24/outline";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import ActionButton from "./ActionButton";
+import { useUserStore } from "../stores/auth.store";
 
-const Navbar = () => {
-  const user = true;
+const Navbar = () => {  
+  const user = useUserStore(state => state.user)
   const navItems = [
     { name: "Home", icon: HomeIcon },
     { name: "About", icon: InformationCircleIcon },
@@ -46,10 +47,10 @@ const Navbar = () => {
           <div className="flex items-center font-bold">
             <img
               className="size-10 rounded-[50%] object-cover mr-5"
-              src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              src={user.avatar || "/noavatar.jpg"}
               alt=""
             />
-            <span>Josss</span>
+            <span>{user.username}</span>
             <Link to="/perfil" className="py-3 px-6 bg-[#fece51] cursor-pointer border-none relative m-5">
               <div className="absolute -top-2 -right-2 bg-red-600 text-white rounded-[50%] size-7 flex items-center justify-center">3</div>
               <span>Perfil</span>
@@ -57,13 +58,13 @@ const Navbar = () => {
           </div>
         ) : (
           <>
-            <a
-              href="/"
+            <Link
+              to="/login"
               className="py-3 px-6 my-5 transition-all duration-400 hover:scale-105 font-bold"
             >
               Sign in
-            </a>
-            <ActionButton text="Perfil"/>
+            </Link>
+            <ActionButton to="/register" text="Sign up"/>
           </>
         )}
         <div className="flex items-center font-bold"></div>
