@@ -5,9 +5,8 @@ import bcrypt from "bcrypt";
 import prisma from "../lib/prisma";
 
 export const register = async (req: Request, res: Response) => {
+    const userData = UserSchema.parse(req.body);
     try {
-        // Validar los datos de entrada con Zod
-        const userData = UserSchema.parse(req.body);
         // Verificar si el usuario ya existe
         const existingUser = await prisma.user.findFirst({
             where: {
