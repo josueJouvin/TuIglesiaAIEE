@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { UserLoginSchema, UserSchema } from "../schema/user.schema";
+import { UpdateUserSchema, UserLoginSchema, UserSchema } from "../schema/user.schema";
 
 export type User = {
   avatar: null | string,
@@ -8,6 +8,18 @@ export type User = {
   username: string,
   email: string
 }
+
+export type userDataType = {
+  id: number,
+  name: string,
+  img: string
+}
+
+export type user = z.infer<typeof UserSchema>
+
+export type UpdateUser = z.infer<typeof UpdateUserSchema>
+
+export type userLogin = z.infer<typeof UserLoginSchema>
 
 export type DummyData = {
   id: number;
@@ -38,13 +50,3 @@ export type DummySingleData = {
   restaurant: string;
   description: string;
 };
-
-export type userDataType = {
-  id: number,
-  name: string,
-  img: string
-}
-
-export type user = z.infer<typeof UserSchema>
-
-export type userLogin = z.infer<typeof UserLoginSchema>

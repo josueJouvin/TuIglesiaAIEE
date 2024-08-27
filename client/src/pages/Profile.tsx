@@ -28,7 +28,7 @@ const Profile = () => {
         <div className="flex flex-col gap-12 lg:pr-[50px]">
           <div className="flex items-center justify-between xl:mt-1">
             <h1 className="font-light text-3xl">Informacion de Usuario</h1>
-            <ActionButton text="Actualizar Perfil" />
+            <ActionButton text="Actualizar Perfil" to="/perfil/actualizar"/>
           </div>
           <div className="flex flex-col gap-5">
             <span className="flex items-center gap-5">

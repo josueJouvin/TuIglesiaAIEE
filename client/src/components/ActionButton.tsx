@@ -20,7 +20,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({ text, action, to, className
   }
 
   return (
-    <button onClick={action} className="">
+    <button onClick={action} className={buttonClass}>
       {text}
     </button>
   );

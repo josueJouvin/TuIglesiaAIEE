@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./layout/Layout";
+import ProfileUpdate from "./pages/ProfileUpdate";
 
 export const router = createBrowserRouter([
     {
@@ -33,17 +34,21 @@ export const router = createBrowserRouter([
             {
                 path:"/iglesias/:id",
                 element:<ChurchProfile/>
+            },
+            {
+                path: "/",
+                element: <ProtectedRoute/>,
+                children: [
+                    {
+                        path: "/perfil",
+                        element: <Profile/>
+                    },
+                    {
+                        path: "/perfil/actualizar",
+                        element: <ProfileUpdate/>
+                    }
+                ]
             }
         ]
     },
-    {
-        path: "/",
-        element: <ProtectedRoute/>,
-        children: [
-            {
-                path: "/perfil",
-                element: <Profile/>
-            }
-        ]
-    }
 ])
