@@ -1,3 +1,4 @@
+import { useMemo} from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Field, Fieldset, Input, Label, Legend } from "@headlessui/react";
@@ -5,52 +6,46 @@ import { UpdateUserSchema} from "../schema/user.schema";
 import { useUserStore } from "../stores/auth.store";
 import { UpdateUser } from "../types";
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 import Error from "../components/Error";
 import apiRequest from '../utils/apiRequest';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import UploadWidget from "../components/UploadWidget";
+
 
 const ProfileUpdate = () => {
   const navigate = useNavigate()
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<UpdateUser>({
+  const { register, handleSubmit, setValue, watch,reset, formState: { errors } } = useForm<UpdateUser>({
     resolver: zodResolver(UpdateUserSchema),
-    defaultValues: {
+    defaultValues: useMemo(() => ({
       username: user?.username || '',
       email: user?.email || '',
-      avatar: user?.avatar || ""
-    },
+      avatar: user?.avatar || ''
+    }), [user]),
   });
 
-  async function handleSubmitUpdate(data: UpdateUser) {
-    if (data.username === user?.username && data.email === user?.email && !data.currentPassword && !data.newPassword) {
-      toast.info("No hay cambios en el perfil");
-      return;
-    }
-    try {
-      const dataToSend: Partial<UpdateUser> = {
-        username: data.username,
-        email: data.email
-      };
+  const avatar = watch("avatar");
+  const handleImageChange = (newAvatarUrl: string) => {
+    setValue("avatar", newAvatarUrl); 
+  };
 
-      if (data.currentPassword && data.newPassword) {
-        dataToSend.currentPassword = data.currentPassword;
-        dataToSend.newPassword = data.newPassword;
-      }
+
+  async function handleSubmitUpdate(data: UpdateUser) {
+    try {
+      const { currentPassword, newPassword, ...otherData } = data;
+      const dataToSend: Partial<UpdateUser> = {
+        ...otherData,
+        ...(currentPassword && newPassword && { currentPassword, newPassword }),
+      };
 
       const res = await apiRequest.put(`/users/${user?.id}`, dataToSend);
       setUser(res.data.data);
       toast.success(res.data.message);
-      reset()
-      navigate("/perfil")
+      reset();
+      navigate("/perfil");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         toast.error(error.response.data.message);
@@ -120,8 +115,9 @@ const ProfileUpdate = () => {
           </Fieldset>
         </form>
       </section>
-      <section className="hidden md:flex-2 md:bg-blue-200/75 md:flex md:items-center md:justify-center overflow-clip">
-        <img src={user?.avatar || "/noavatar.jpg"} alt="" className="w-1/2" />
+      <section className="hidden md:flex-2 md:bg-blue-200/75 md:flex md:items-center md:justify-center overflow-clip flex-col gap-5">
+        <img src={avatar || "/noavatar.jpg"} alt="" className="w-3/4 object-cover" />
+        <UploadWidget handleImageChange={handleImageChange} />
       </section>
     </>
   );
