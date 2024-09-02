@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import prisma from "../lib/prisma";
 import bcrypt from "bcrypt";
 import { UpdateUserSchema } from "../schema/user.schema";
+import { deleteImage } from "../config/cloudinary";
 
 export const updateUser = async (req: Request, res: Response) => {
   const id = req.params.id;
@@ -23,11 +24,22 @@ export const updateUser = async (req: Request, res: Response) => {
     // Fetch the current user data
     const user = await prisma.user.findUnique({
       where: { id },
-      select: { password: true, username: true, email: true },
+      select: { password: true, username: true, email: true, avatar: true},
     });
 
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+    const isProfileUnchanged = (
+      username === user.username &&
+      email === user.email &&
+      avatar === user.avatar &&
+      !currentPassword &&
+      !newPassword
+    );
+
+    if (isProfileUnchanged) {
+      return res.status(400).json({ message: "No hay cambios en el perfil" });
     }
 
     // Check if username or email are already in use
@@ -52,6 +64,10 @@ export const updateUser = async (req: Request, res: Response) => {
       }
     }
 
+    if (avatar && user.avatar && user.avatar !== avatar) {
+      // Delete old avatar from Cloudinary
+      await deleteImage(user.avatar);
+    }
     // If new password is provided, validate and hash it
     if (newPassword && currentPassword) {
       if (!currentPassword) {
@@ -82,11 +98,11 @@ export const updateUser = async (req: Request, res: Response) => {
           username,
           email,
           password: updatedPassword,
-          avatar,
+          avatar
         },
       });
-
-      return res.status(200).json(updatedUser);
+      const {password, ...rest} = updatedUser
+      return res.status(200).json({message: "Perfil actualizado correctamente", data: rest});
     }else{
     // If no new password is provided, update username, email, and avatar
     const updatedUser = await prisma.user.update({
@@ -94,11 +110,12 @@ export const updateUser = async (req: Request, res: Response) => {
         data: {
           username,
           email,
-          avatar,
+          avatar
         },
       });
-  
-      res.status(200).json(updatedUser);
+
+      const {password, ...rest} = updatedUser
+      return res.status(200).json({message: "Perfil actualizado correctamente", data: rest});
     }
   } catch (error) {
     console.error("Error al actualizar usuario:", error);
