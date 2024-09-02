@@ -1,13 +1,18 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
+
 const Layout = () => {
-  const location = useLocation()
+  const { pathname} = useLocation();
+  const isHomePage = pathname === "/";
+  const isLoginPage = pathname === "/login";
+  const isSpecialPage = ["/", "/iglesias", "/perfil", "/login", "/register"].includes(pathname);
+  
   return (
-    <div className={`${location.pathname === "/" ? "h-screen" : "" } container mx-auto px-5 pb-5 md:pb-0 flex flex-col `}>
+    <div className={`container mx-auto px-5 pb-5 md:pb-0 flex flex-col ${isHomePage ? "h-screen" : ""}`}>
       <Navbar />
-      <div className={location.pathname === "/"  || location.pathname === "/iglesias" || location.pathname === "/perfil" || location.pathname === "/login" || location.pathname === "/register" || location.pathname === "/perfil/actualizar" ? "h-outlet" : " "}>
-        <div className={`h-full flex flex-col ${location.pathname === "/login" ? "md:flex-row" : "lg:flex-row"} gap-5 lg:gap-0`}>
+      <div className={isSpecialPage ? "h-outlet" : ""}>
+        <div className={`h-full flex flex-col ${isLoginPage ? "md:flex-row" : "lg:flex-row"} gap-6 lg:gap-0`}>
           <Outlet />
         </div>
       </div>

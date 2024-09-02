@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useUserStore } from "../stores/auth.store";
 
 
 interface UploadWidgetProps {
@@ -7,6 +8,7 @@ interface UploadWidgetProps {
 
 
 const UploadWidget = ({handleImageChange}: UploadWidgetProps) => {
+  const user = useUserStore((state) => state.user);
   const cloudinaryRef = useRef()
   const widgetRef = useRef()
   useEffect(() => {
@@ -25,12 +27,10 @@ const UploadWidget = ({handleImageChange}: UploadWidgetProps) => {
         handleImageChange(result.info.secure_url); // Guarda la URL de la imagen subida en el estado
       }})
 
-  },[])
+  },[handleImageChange])
 
   return (
-    <div>
-      <button onClick={()=> widgetRef.current.open()}>Seleccionar y Subir Imagen</button>
-    </div>
+      <button className="w-full mt-5 bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 md:w-3/4 lg:w-auto" onClick={()=> widgetRef.current.open()}>{user?.avatar ? "Actualizar Imagen" : "Seleccionar y Subir Imagen"}</button>
   );
 };
 

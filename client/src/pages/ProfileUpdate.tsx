@@ -34,6 +34,10 @@ const ProfileUpdate = () => {
 
 
   async function handleSubmitUpdate(data: UpdateUser) {
+    if (data.username === user?.username && data.email === user?.email && !data.currentPassword && !data.newPassword && data.avatar === user?.avatar) {
+      toast.info("No hay cambios en el perfil");
+      return;
+    }
     try {
       const { currentPassword, newPassword, ...otherData } = data;
       const dataToSend: Partial<UpdateUser> = {
@@ -57,9 +61,9 @@ const ProfileUpdate = () => {
 
   return (
     <>
-      <section className="flex-3 h-full flex items-center justify-center">
+      <section className="flex-3 xl:h-outlet flex items-center justify-center">
         <form className="w-full md:w-3/4 lg:w-1/2" onSubmit={handleSubmit(handleSubmitUpdate)}>
-          <Fieldset className="flex flex-col gap-5">
+          <Fieldset className="flex flex-col gap-3 lg:gap-4">
             <Legend className="font-bold text-3xl">Actualizar Perfil</Legend>
             <Field className="flex flex-col gap-1">
               <Label className="text-blue-500 text-xs font-semibold relative top-2 ml-2 px-1 bg-white w-fit">
@@ -109,14 +113,14 @@ const ProfileUpdate = () => {
               />
               {errors.newPassword && <Error>{errors.newPassword.message}</Error>}
             </Field>
-            <button type="submit" className="bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600">
+            <button type="submit" className="bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 ">
               Actualizar Perfil
             </button>
           </Fieldset>
         </form>
       </section>
-      <section className="hidden md:flex-2 md:bg-blue-200/75 md:flex md:items-center md:justify-center overflow-clip flex-col gap-5">
-        <img src={avatar || "/noavatar.jpg"} alt="" className="w-3/4 object-cover" />
+      <section className="my-5 lg:my-0 md:flex-2 lg:bg-blue-200/75 md:flex md:items-center md:justify-center overflow-clip flex-col gap-5 xl:h-outlet">
+        <img src={avatar || "/noavatar.jpg"} alt="" className="md:w-3/4 object-cover" />
         <UploadWidget handleImageChange={handleImageChange} />
       </section>
     </>
