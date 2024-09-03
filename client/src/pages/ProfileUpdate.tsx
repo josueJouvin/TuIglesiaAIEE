@@ -1,43 +1,30 @@
-import { useMemo} from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Field, Fieldset, Input, Label, Legend } from "@headlessui/react";
-import { UpdateUserSchema} from "../schema/user.schema";
 import { useUserStore } from "../stores/auth.store";
 import { UpdateUser } from "../types";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import { useUpdateUserForm } from "../hooks/useUpdateUserForm";
+import { validateUserChanges } from "../utils/validateUserChanges";
 
 import Error from "../components/Error";
 import apiRequest from '../utils/apiRequest';
 import axios from 'axios';
-import UploadWidget from "../components/UploadWidget";
+import useCloudinaryWidgets from "../hooks/useCloudinaryWidget";
 
 
 const ProfileUpdate = () => {
   const navigate = useNavigate()
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
-  const { register, handleSubmit, setValue, watch,reset, formState: { errors } } = useForm<UpdateUser>({
-    resolver: zodResolver(UpdateUserSchema),
-    defaultValues: useMemo(() => ({
-      username: user?.username || '',
-      email: user?.email || '',
-      avatar: user?.avatar || ''
-    }), [user]),
-  });
-
-  const avatar = watch("avatar");
-  const handleImageChange = (newAvatarUrl: string) => {
-    setValue("avatar", newAvatarUrl); 
-  };
-
+  const { register, handleSubmit, errors, avatar, handleImageChange, reset } = useUpdateUserForm();
+  const { openWidget } = useCloudinaryWidgets({handleImageChange})
 
   async function handleSubmitUpdate(data: UpdateUser) {
-    if (data.username === user?.username && data.email === user?.email && !data.currentPassword && !data.newPassword && data.avatar === user?.avatar) {
+    if (!validateUserChanges(data, user)) {
       toast.info("No hay cambios en el perfil");
       return;
     }
+
     try {
       const { currentPassword, newPassword, ...otherData } = data;
       const dataToSend: Partial<UpdateUser> = {
@@ -61,7 +48,7 @@ const ProfileUpdate = () => {
 
   return (
     <>
-      <section className="flex-3 xl:h-outlet flex items-center justify-center">
+      <section className="xl:h-outlet flex-3 flex items-center justify-center">
         <form className="w-full md:w-3/4 lg:w-1/2" onSubmit={handleSubmit(handleSubmitUpdate)}>
           <Fieldset className="flex flex-col gap-3 lg:gap-4">
             <Legend className="font-bold text-3xl">Actualizar Perfil</Legend>
@@ -119,9 +106,9 @@ const ProfileUpdate = () => {
           </Fieldset>
         </form>
       </section>
-      <section className="my-5 lg:my-0 md:flex-2 lg:bg-blue-200/75 md:flex md:items-center md:justify-center overflow-clip flex-col gap-5 xl:h-outlet">
+      <section className="my-5 lg:my-0 md:flex-2 lg:bg-blue-200/75 md:flex md:items-center md:justify-center overflow-clip flex-col gap-5 xL:h-outlet">
         <img src={avatar || "/noavatar.jpg"} alt="" className="md:w-3/4 object-cover" />
-        <UploadWidget handleImageChange={handleImageChange} />
+        <button className="w-full mt-5 bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 md:w-3/4 lg:w-auto" onClick={openWidget}>{user?.avatar ? "Actualizar Imagen" : "Seleccionar y Subir Imagen"}</button>
       </section>
     </>
   );
