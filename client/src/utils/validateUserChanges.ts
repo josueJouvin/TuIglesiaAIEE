@@ -1,6 +1,7 @@
 import { UpdateUser} from "../types"; // Asegúrate de importar los tipos correctos
 
 export const validateUserChanges = (data: UpdateUser, user: any) => {
+    console.log("validando")
     return data.username !== user?.username || 
     data.email !== user?.email || 
     data.currentPassword || 

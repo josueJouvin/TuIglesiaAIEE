@@ -1,13 +1,17 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef} from "react";
+import { toast } from "react-toastify";
 
 interface UploadWidgetProps {
   handleImageChange: (newAvatarUrl: string) => void;
 }
 
 const useCloudinaryWidgets = ({handleImageChange}: UploadWidgetProps) => {
+
   const cloudinaryRef = useRef()
   const widgetRef = useRef()
+  
   useEffect(() => {
+    console.log("en el widget")
     cloudinaryRef.current = window.cloudinary;
     widgetRef.current = cloudinaryRef.current.createUploadWidget({
       cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
@@ -18,16 +22,21 @@ const useCloudinaryWidgets = ({handleImageChange}: UploadWidgetProps) => {
       folder: "AvatarsAIEE",
       maxImageFileSize: 5000000,
       format: "auto"
-    },function(error, result){
+    }, function(error, result){
       if (!error && result && result.event === 'success') {
         handleImageChange(result.info.secure_url); // Guarda la URL de la imagen subida en el estado
-      }})
+      } else if (error) {
+        toast.error('Error al cargar la imagen');
+      }
+    })
+  }, [handleImageChange])
 
-  },[handleImageChange])
+  const openWidget = () => {
+    console.log("en el widget 2")
 
- 
-const openWidget = () => {
     if (widgetRef.current) {
+    console.log("en el widget 3")
+
       widgetRef.current.open();
     }
   };
@@ -36,6 +45,3 @@ const openWidget = () => {
 };
 
 export default useCloudinaryWidgets;
-
-
-

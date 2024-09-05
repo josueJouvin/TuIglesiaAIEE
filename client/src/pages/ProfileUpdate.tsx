@@ -1,4 +1,4 @@
-import { Field, Fieldset, Input, Label, Legend } from "@headlessui/react";
+import { Field, Fieldset, Input, Label, Legend, Button } from "@headlessui/react";
 import { useUserStore } from "../stores/auth.store";
 import { UpdateUser } from "../types";
 import { toast } from 'react-toastify';
@@ -20,12 +20,14 @@ const ProfileUpdate = () => {
   const { openWidget } = useCloudinaryWidgets({handleImageChange})
 
   async function handleSubmitUpdate(data: UpdateUser) {
+    console.log("click")
     if (!validateUserChanges(data, user)) {
       toast.info("No hay cambios en el perfil");
       return;
     }
 
     try {
+      console.log("aa")
       const { currentPassword, newPassword, ...otherData } = data;
       const dataToSend: Partial<UpdateUser> = {
         ...otherData,
@@ -48,7 +50,7 @@ const ProfileUpdate = () => {
 
   return (
     <>
-      <section className="xl:h-outlet flex-3 flex items-center justify-center">
+      <section className="lg:h-outlet flex-3 flex items-center justify-center">
         <form className="w-full md:w-3/4 lg:w-1/2" onSubmit={handleSubmit(handleSubmitUpdate)}>
           <Fieldset className="flex flex-col gap-3 lg:gap-4">
             <Legend className="font-bold text-3xl">Actualizar Perfil</Legend>
@@ -100,13 +102,13 @@ const ProfileUpdate = () => {
               />
               {errors.newPassword && <Error>{errors.newPassword.message}</Error>}
             </Field>
-            <button type="submit" className="bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 ">
+            <Button type="submit" className="bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 ">
               Actualizar Perfil
-            </button>
+            </Button>
           </Fieldset>
         </form>
       </section>
-      <section className="my-5 lg:my-0 md:flex-2 lg:bg-blue-200/75 md:flex md:items-center md:justify-center overflow-clip flex-col gap-5 xL:h-outlet">
+      <section className="my-5 lg:my-0 md:flex-2 lg:bg-blue-200/75 md:flex md:items-center md:justify-center overflow-clip flex-col gap-5 lg:h-outlet">
         <img src={avatar || "/noavatar.jpg"} alt="" className="md:w-3/4 object-cover" />
         <button className="w-full mt-5 bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 md:w-3/4 lg:w-auto" onClick={openWidget}>{user?.avatar ? "Actualizar Imagen" : "Seleccionar y Subir Imagen"}</button>
       </section>

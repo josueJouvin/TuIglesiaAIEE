@@ -26,6 +26,7 @@ export const updateUser = async (req: Request, res: Response) => {
       where: { id },
       select: { password: true, username: true, email: true, avatar: true},
     });
+    console.log(user)
 
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado" });
@@ -65,7 +66,6 @@ export const updateUser = async (req: Request, res: Response) => {
     }
 
     if (avatar && user.avatar && user.avatar !== avatar) {
-      // Delete old avatar from Cloudinary
       await deleteImage(user.avatar);
     }
     // If new password is provided, validate and hash it
