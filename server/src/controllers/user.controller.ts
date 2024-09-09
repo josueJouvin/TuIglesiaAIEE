@@ -30,14 +30,15 @@ export const updateUser = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
+    
     const isProfileUnchanged = (
-      username === user.username &&
-      email === user.email &&
-      avatar === user.avatar &&
+      JSON.stringify(username) === JSON.stringify(user.username) &&
+      JSON.stringify(email) === JSON.stringify(user.email) &&
+      JSON.stringify(avatar || "") === JSON.stringify(user.avatar || "") &&
       !currentPassword &&
       !newPassword
     );
-
+    
     if (isProfileUnchanged) {
       return res.status(400).json({ message: "No hay cambios en el perfil" });
     }
