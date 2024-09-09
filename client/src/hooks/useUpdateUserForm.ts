@@ -17,6 +17,7 @@
           avatar: user?.avatar || ''
         }), [user]),
       });
+      
       const avatar = watch("avatar");
       const handleImageChange = (newAvatarUrl: string) => {
         setValue("avatar", newAvatarUrl); 
