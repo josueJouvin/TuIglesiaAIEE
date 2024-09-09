@@ -26,7 +26,6 @@ export const updateUser = async (req: Request, res: Response) => {
       where: { id },
       select: { password: true, username: true, email: true, avatar: true},
     });
-    console.log(user)
 
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado" });
