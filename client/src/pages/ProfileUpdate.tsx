@@ -20,14 +20,12 @@ const ProfileUpdate = () => {
   const { openWidget } = useCloudinaryWidgets({handleImageChange})
 
   async function handleSubmitUpdate(data: UpdateUser) {
-    console.log("click")
-    if (!validateUserChanges(data, user)) {
+    if (validateUserChanges(data, user)) {
       toast.info("No hay cambios en el perfil");
       return;
     }
 
     try {
-      console.log("aa")
       const { currentPassword, newPassword, ...otherData } = data;
       const dataToSend: Partial<UpdateUser> = {
         ...otherData,

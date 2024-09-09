@@ -11,7 +11,6 @@ const useCloudinaryWidgets = ({handleImageChange}: UploadWidgetProps) => {
   const widgetRef = useRef()
   
   useEffect(() => {
-    console.log("en el widget")
     cloudinaryRef.current = window.cloudinary;
     widgetRef.current = cloudinaryRef.current.createUploadWidget({
       cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
@@ -32,13 +31,8 @@ const useCloudinaryWidgets = ({handleImageChange}: UploadWidgetProps) => {
   }, [handleImageChange])
 
   const openWidget = () => {
-    console.log("en el widget 2")
-
-    if (widgetRef.current) {
-    console.log("en el widget 3")
-
-      widgetRef.current.open();
-    }
+    widgetRef.current.open()
+    false
   };
 
   return { openWidget };
