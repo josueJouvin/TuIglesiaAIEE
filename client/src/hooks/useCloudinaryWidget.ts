@@ -32,7 +32,6 @@ const useCloudinaryWidgets = ({handleImageChange}: UploadWidgetProps) => {
 
   const openWidget = () => {
     widgetRef.current.open()
-    false
   };
 
   return { openWidget };

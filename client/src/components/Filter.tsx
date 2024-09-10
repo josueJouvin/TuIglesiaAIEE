@@ -1,4 +1,4 @@
-import { Button, Field, Fieldset, Input, Legend, Select } from "@headlessui/react";
+import { Button, Field, Fieldset, Input, Legend, Select,  } from "@headlessui/react";
 import { CustomLabel } from "./Form/CustomLabel";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
@@ -68,19 +68,7 @@ const Filter = () => {
             </Select>
           </Field>
           <Field className="flex flex-col gap-1">
-            <CustomLabel text="Horarios" htmlFor="horarios" />
-            <Select
-              className="w-28  p-3 border border-solid border-gray-300 rounded-md text-sm"
-              id="horarios"
-              name="horarios"
-            >
-              <option>Mañana</option>
-              <option>Tarde</option>
-              <option>Noche</option>
-            </Select>
-          </Field>
-          <Field className="flex flex-col gap-1">
-            <CustomLabel text="Días" htmlFor="dia" />
+            <CustomLabel text="Días de culto" htmlFor="dia" />
             <Select
               className="w-28  p-3 border border-solid border-gray-300 rounded-md text-sm"
               id="dia"
