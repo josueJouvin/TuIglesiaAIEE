@@ -40,7 +40,7 @@ model postDetails {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   description String
   pastorAvatar String?
-  servicesTimes String[] @default([])
+  servicesTimes String?
   parking Boolean
   missionStatement String?
   socialMediaLink String? 
