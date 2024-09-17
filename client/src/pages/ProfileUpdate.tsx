@@ -17,14 +17,13 @@ const ProfileUpdate = () => {
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
   const { register, handleSubmit, errors, avatar, handleImageChange, reset } = useUpdateUserForm();
-  const { openWidget } = useCloudinaryWidgets({handleImageChange})
+  const { openWidget } = useCloudinaryWidgets({handleImageChange, multiple:false, folder: "AvatarsAIEE", maxFiles:1})
 
   async function handleSubmitUpdate(data: UpdateUser) {
     if (validateUserChanges(data, user)) {
       toast.info("No hay cambios en el perfil");
       return;
     }
-
     try {
       const { currentPassword, newPassword, ...otherData } = data;
       const dataToSend: Partial<UpdateUser> = {
@@ -51,7 +50,7 @@ const ProfileUpdate = () => {
       <section className="lg:h-outlet flex-3 flex items-center justify-center">
         <form className="w-full md:w-3/4 lg:w-1/2" onSubmit={handleSubmit(handleSubmitUpdate)}>
           <Fieldset className="flex flex-col gap-3 lg:gap-4">
-            <Legend className="font-bold text-3xl">Actualizar Perfil</Legend>
+            <Legend className="font-bold text-2xl">Actualizar Perfil</Legend>
             <Field className="flex flex-col gap-1">
               <Label className="text-blue-500 text-xs font-semibold relative top-2 ml-2 px-1 bg-white w-fit">
                 Nombre de Usuario

@@ -27,7 +27,7 @@ const Profile = () => {
       <section className="pb-12 h-max lg:h-auto lg:flex-3 lg:overflow-y-scroll">
         <div className="flex flex-col gap-12 lg:pr-[50px]">
           <div className="flex items-center justify-between xl:mt-1">
-            <h1 className="font-light text-3xl">Informacion de Usuario</h1>
+            <h1 className="font-medium text-3xl">Informacion de Usuario</h1>
             <ActionButton text="Actualizar Perfil" to="/perfil/actualizar"/>
           </div>
           <div className="flex flex-col gap-5">
@@ -49,7 +49,7 @@ const Profile = () => {
           </div>
           <div className="flex items-center justify-between">
             <p className="font-light text-3xl">Publicaciones</p>
-            <ActionButton text="Nuevo Post" />
+            <ActionButton text="Crear Iglesia" to="/nueva-iglesia"/>
           </div>
           <ChurchListings />
           <div className="flex items-center justify-between">

@@ -5,3 +5,29 @@
 body{
     @apply font-lato
 }
+
+.quill-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .quill-wrapper .quill {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .quill-wrapper .ql-container {
+    flex: 1;
+    overflow: auto;
+  }
+  
+  .quill-wrapper .ql-toolbar {
+    border: none;
+    border-bottom: 2px solid black;
+  }
+  
+  .quill-wrapper .ql-container {
+    border: none;
+  }

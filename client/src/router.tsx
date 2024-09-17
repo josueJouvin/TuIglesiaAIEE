@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./layout/Layout";
 import ProfileUpdate from "./pages/ProfileUpdate";
+import NewChurch from "./pages/NewChurch";
 
 export const router = createBrowserRouter([
     {
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
                     {
                         path: "/perfil/actualizar",
                         element: <ProfileUpdate/>
+                    },
+                    {
+                        path: "/nueva-iglesia",
+                        element: <NewChurch/>
                     }
                 ]
             }
