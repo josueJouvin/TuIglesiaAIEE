@@ -3,7 +3,6 @@ import {
   ArrowRightEndOnRectangleIcon,
   Bars3Icon,
   HomeIcon,
-  InformationCircleIcon,
   MapPinIcon,
   PhoneIcon,
   UserGroupIcon,
@@ -16,10 +15,9 @@ import { useUserStore } from "../stores/auth.store";
 const Navbar = () => {  
   const user = useUserStore(state => state.user)
   const navItems = [
-    { name: "Home", icon: HomeIcon },
-    { name: "About", icon: InformationCircleIcon },
-    { name: "Contact", icon: PhoneIcon },
-    { name: "Agents", icon: UserGroupIcon },
+    { name: "iglesias", icon: HomeIcon, href: "/iglesias"},
+    { name: "misison", icon: PhoneIcon,  href: "/"},
+    { name: "vision", icon: UserGroupIcon,   href: "/"},
   ];
   return (
     <nav className="h-20 md:h-[100px] flex justify-between items-center">
@@ -34,7 +32,7 @@ const Navbar = () => {
         {navItems.map((item) => (
           <a
             key={item.name}
-            href="/"
+            href={item.href}
             className="transition-all duration-400 hover:scale-105 hidden md:block"
           >
             {item.name}
