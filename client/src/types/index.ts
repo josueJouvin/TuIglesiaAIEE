@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { UpdateUserSchema, UserLoginSchema, UserSchema } from "../schema/user.schema";
+import { PostChurchSchema } from "../schema/church.schema";
 
 export type User = {
   avatar: null | string,
@@ -20,6 +21,8 @@ export type user = z.infer<typeof UserSchema>
 export type UpdateUser = z.infer<typeof UpdateUserSchema>
 
 export type userLogin = z.infer<typeof UserLoginSchema>
+
+export type postChurch = z.infer<typeof PostChurchSchema >
 
 export type DummyData = {
   id: number;

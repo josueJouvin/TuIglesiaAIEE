@@ -9,7 +9,7 @@ export const CHURCH_SERVICES = [
     { value: "alcance-comunitario", label: "Alcance Comunitario" },
     { value: "grupo-mujeres", label: "Grupo de Mujeres" },
     { value: "grupo-hombres", label: "Grupo de Hombres" }
-];
+] as const;
 
 export const CHURCH_SERVICES_DAYS = [
     { value: "lunes", label: "Lunes" },
@@ -19,4 +19,4 @@ export const CHURCH_SERVICES_DAYS = [
     { value: "viernes", label: "Viernes" },
     { value: "sabado", label: "Sabado" },
     { value: "domingo", label: "Domingo" },
-]
+] as const
