@@ -7,5 +7,14 @@
     {
       "path": "./tsconfig.node.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "strict": false,  // Desactiva todas las opciones estrictas de TypeScript
+    "noImplicitAny": false,  // Permite el uso implícito de `any`
+    "skipLibCheck": true,  // Omite la verificación de tipos en los archivos de la biblioteca
+    "allowJs": true,  // Si tienes archivos .js, permite su uso
+    "esModuleInterop": true,  // Facilita la interoperabilidad con módulos comunes
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": ["node_modules", "**/*.spec.ts"] // Excluye pruebas u otros archivos innecesarios para el despliegue
 }

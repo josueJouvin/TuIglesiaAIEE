@@ -1,3 +1,6 @@
+import { StylesConfig } from 'react-select';
+
+
 export const HORARIOS_CULTOS_PLACEHOLDER = `!! Separa con " / " cada dia !!
 
 Domingo - Culto Principal: 10:00 AM /
@@ -6,7 +9,14 @@ Viernes - Reunión de Jóvenes: 8:00 PM /
 Sábado - Oración Matutina: 6:00 AM /
 `;
 
-export const SELECT_CUSTOM_STYLES = {
+
+// Definimos un tipo genérico para nuestras opciones
+type OptionType = {
+  label: string;
+  value: string;
+};
+
+export const SELECT_CUSTOM_STYLES: StylesConfig<OptionType, false> = {
   control: (provided, state) => ({
     ...provided,
     borderColor: 'black',

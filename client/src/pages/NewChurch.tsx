@@ -13,15 +13,17 @@ import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
 import useCloudinaryWidgets from "../hooks/useCloudinaryWidget";
 import Error from "../components/Error";
+import { useUpdateUserForm } from "../hooks/useUpdateUserForm";
 
 
 const NewChurch = () => {
   const animatedComponents = makeAnimated();
-  const { openWidget } = useCloudinaryWidgets({folder:"churchImages",maxFiles:5,multiple:true})
   const { control, register, formState:{ errors }, reset, handleSubmit} = useForm<postChurch>({resolver: zodResolver(PostChurchSchema)});
+  const { handleImageChange} = useUpdateUserForm();
+  const { openWidget } = useCloudinaryWidgets({folder:"churchImages",maxFiles:5,multiple:true, handleImageChange})
 
-  const onSubmit = (data) => {
-
+  const onSubmit = (data: postChurch) => {
+    handleImageChange("")
     console.log(data); // Aquí puedes ver los valores del formulario
     reset()
   };
@@ -67,7 +69,6 @@ const NewChurch = () => {
                   <Controller
                     name="mainWorship"
                     control={control}
-                    defaultValue={""}
                     render={({ field }) => (
                       <Select
                         {...field}
@@ -105,7 +106,6 @@ const NewChurch = () => {
                 <Controller
                   name="servicesTimes"
                   control={control}
-                  defaultValue=""
                   render={({ field }) => (
                     <ReactQuill
                       {...field}
@@ -121,7 +121,6 @@ const NewChurch = () => {
                   <Controller
                     name="servicesDays"
                     control={control}
-                    defaultValue={[]}
                     render={({ field }) => (
                       <Select
                         {...field}
@@ -150,7 +149,6 @@ const NewChurch = () => {
                   <Controller
                     name="servicesTypes"
                     control={control}
-                    defaultValue={[]}
                     render={({ field }) => (
                       <Select
                         {...field}
@@ -201,7 +199,6 @@ const NewChurch = () => {
                 <Controller
                   name="description"
                   control={control}
-                  defaultValue=""
                   render={({ field }) => (
                     <ReactQuill
                       {...field}
